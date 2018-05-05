@@ -1,0 +1,26 @@
+<!--pages/mine/index.wxml-->
+<view class='userinfo'>
+  <view bindtap='login' class="userinfo">
+    <image src="{{avatar}}" class="userinfo-avatar"></image>
+    <text class="userinfo-nickname">{{nickname}}</text>
+  </view>
+</view>
+
+<view class="block"></view>
+
+<view class="me" hover-class="gray" hover-stay-time="100">
+    <view bindtap="newReg" class="font" >创建新的签到表<image src="/imgs/mine/right-arrow.png" class="right-arrow"></image>
+    </view>
+</view>
+
+<view class="block"></view>
+
+<view class="mid" hover-class="gray" hover-stay-time="100">
+    <view bindtap="createdRegs" class="font" data-postName="1">我创建的签到<image src="/imgs/mine/right-arrow.png" class="right-arrow"></image>
+    </view>
+</view>
+
+<view class="me" hover-class="gray" hover-stay-time="100">
+   <view bindtap="joinedRegs" class="font">我参与的签到<image src="/imgs/mine/right-arrow.png" class="right-arrow"></image>
+   </view>
+</view>

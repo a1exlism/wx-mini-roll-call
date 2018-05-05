@@ -1,0 +1,54 @@
+<!-- pages/newReg/index.wxml -->
+<form bindsubmit="forsubmit">
+  <view class="name">
+    <view class="name-left">
+      <text>项目名称: </text>
+    </view>
+    <view class="name-right">
+      <input maxlength="10" name="projectName" />
+    </view>
+  </view>
+
+  <view class="start-time">
+    <view class="time-left inline-block">开始时间: </view>
+
+    <view class="time-mid inline-block">
+      <picker mode="date" value="{{date}}" start="{{date}}" bindchange="bindDateChange" name="startDate">
+        <view class="picker" style="color:#555">{{date}}</view>
+      </picker>
+    </view>
+    
+    <view class="line inline-block"></view>
+
+    <view class="time-right inline-block">
+      <picker mode="time" value="{{time}}" start="{{time}}" bindchange="bindTimeChange" name="startTime">
+        <view class="picker" style="color:#555">{{time}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="delay">
+    <view class="delay-left">
+        多久之后停止签到?
+    </view>
+    <view class="delay-right">
+        <picker value="{{delayIndex}}" range="{{delayArr}}" bindchange="bindDelayChange">
+            <view class="picker" style='color:#555'>
+                {{delayArr[delayIndex] + " 分钟"}}
+             </view>
+        </picker>
+    </view>
+  </view>
+
+  <view class="place">
+    <view class="place-left">
+        签到地点：
+    </view>
+    <image src="/imgs/newReg/location.png" class="circle"></image>
+    <view class="map" bindtap="setLocation" style='color:#555'>
+        {{locationName}}
+    </view>
+</view>
+
+
+</form>

@@ -1,0 +1,3 @@
+<!--pages/regDetail/index.wxml-->
+<text>pages/regDetail/index.wxml</text>
+<text>单一签到表的具体内容, 根据用户是否为创建者显示不同的页面</text>

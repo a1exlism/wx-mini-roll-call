@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/mine/index",
+    "pages/newReg/index",
+    "pages/regDetail/index",
+    "pages/regRecords/index"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "校内签到",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#888",
+    "borderStyle": "black",
+    "selectedColor": "#42C541",
+    "backgroundColor": "#F8F8F8",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "签到",
+        "iconPath": "imgs/tabBar/a1.png",
+        "selectedIconPath": "imgs/tabBar/a2.png"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的",
+        "iconPath": "imgs/tabBar/b1.png",
+        "selectedIconPath": "imgs/tabBar/b2.png"
+      }
+    ]
+  }
+}
