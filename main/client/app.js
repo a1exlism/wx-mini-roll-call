@@ -26,9 +26,6 @@ App({
             this.globalData.user = user.toJSON();
             //  调用微信API获取用户信息
             console.log(this.globalData.user);
-            setTimeout(() => {
-                console.log(this.globalData.user.nickName);
-            }, 500);
         }).catch(console.error);
         wx.getSetting({
             success(res) {

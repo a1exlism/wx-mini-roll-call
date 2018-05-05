@@ -11,6 +11,7 @@ Page({
   data: {
     nickname: app.globalData.user.nickName,
     avatar: app.globalData.user.avatarUrl,
+
   },
   login() {
     app.AV.User.loginWithWeapp().then(user => {
@@ -21,17 +22,17 @@ Page({
   /**
    * Page jumping
    */
-  newReg: function() {
+  newReg() {
     wx.navigateTo({
       url: '/pages/newReg/index'
     })
   },
-  createdRegs: function() {
+  createdRegs() {
     wx.navigateTo({
       url: '/pages/regRecords/index'
     })
   },
-  joinedRegs: function() {
+  joinedRegs() {
     wx.navigateTo({
       url: '/pages/regRecords/index'
     })

@@ -10,33 +10,49 @@ Page({
     delayIndex: '0',
     delayArr: [3, 5, 10, 15, 30],
 
-    locationName: '点我选择地点',
-    locationAddress: '',
-    latitude: 0.0,
-    longitude: 0.0,
-
+    location: {
+      name: '点我选择地点',
+      address: '',
+      latitude: '',
+      longitude: '',
+    }
   },
 
   //  time setting
-  bindDateChange: function (e) {
+  bindDateChange(e) {
     this.setData({
       date: e.detail.value
     })
   },
-  bindTimeChange: function (e) {
+  bindTimeChange(e) {
     this.setData({
       time: e.detail.value
     })
   },
-  bindDelayChange: function (e) {
+  bindDelayChange(e) {
     this.setData({
       delayIndex: e.detail.value
     })
   },
-
   //  location setting
-  setLocation: function(e) {
-    
+  setLocation() {
+    console.log('set location triggered');
+    let that = this;
+    wx.chooseLocation({
+      type: 'wgs84',
+      altitude: true,
+      success(res) {
+        that.setData({
+          location: {
+            name: res.name || '请选择地点',
+            address: res.address,
+            latitude: res.latitude,
+            longitude: res.longitude
+          }
+        });
+        console.log(that.data.location);
+      }
+    })
   },
 
   /**

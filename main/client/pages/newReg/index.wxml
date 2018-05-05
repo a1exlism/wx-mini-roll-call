@@ -46,7 +46,7 @@
     </view>
     <image src="/imgs/newReg/location.png" class="circle"></image>
     <view class="map" bindtap="setLocation" style='color:#555'>
-        {{locationName}}
+        {{location.name}}
     </view>
 </view>
 
