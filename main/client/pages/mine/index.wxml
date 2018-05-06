@@ -20,7 +20,8 @@
     </view>
 </view>
 
-<view class="me" hover-class="gray" hover-stay-time="100">
+<!-- 不需要有参与的签到, 一次性, 浪费时间 -->
+<!--<view class="me" hover-class="gray" hover-stay-time="100">
    <view bindtap="joinedRegs" class="font">我参与的签到<image src="/imgs/mine/right-arrow.png" class="right-arrow"></image>
    </view>
-</view>
+</view>-->

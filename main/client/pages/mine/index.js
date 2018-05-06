@@ -11,12 +11,15 @@ Page({
   data: {
     nickname: app.globalData.user.nickName,
     avatar: app.globalData.user.avatarUrl,
-
   },
   login() {
     app.AV.User.loginWithWeapp().then(user => {
       app.globalData.user = user.toJSON();
       //  调用微信API获取用户信息
+      this.setData({
+        nickname: app.globalData.user.nickName,
+        avatar: app.globalData.user.avatarUrl,
+      });
     }).catch(console.error);
   },
   /**

@@ -40,15 +40,27 @@
     </view>
   </view>
 
-  <view class="place">
+  <view class="place" bindtap="setLocation">
     <view class="place-left">
         签到地点：
     </view>
     <image src="/imgs/newReg/location.png" class="circle"></image>
-    <view class="map" bindtap="setLocation" style='color:#555'>
+    <view class="map" style='color:#555'>
         {{location.name}}
     </view>
-</view>
+  </view>
 
+  <view class="veri-code">
+    <view class="veri-left inline-block">
+      <text>需要填的信息: </text>
+    </view>
+    <view class="veri-right inline-block">
+      <input maxlength="10" value="{{variColumn}}" disabled="true"/>
+    </view>
+  </view>
+
+  <view class="regCreate">
+    <button type="primary" size='default' plain='{{true}}' bindtap="regCreate">创建签到</button>
+  </view>
 
 </form>

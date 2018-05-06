@@ -15,7 +15,9 @@ Page({
       address: '',
       latitude: '',
       longitude: '',
-    }
+    },
+
+    variColumn: '学号',
   },
 
   //  time setting
@@ -42,15 +44,21 @@ Page({
       type: 'wgs84',
       altitude: true,
       success(res) {
+        let locationName = '已保存地点信息';
+        if(res.name != '' && res.name !== undefined) {
+          locationName = res.name;
+        }
         that.setData({
           location: {
-            name: res.name || '请选择地点',
+            name: locationName,
             address: res.address,
             latitude: res.latitude,
             longitude: res.longitude
           }
         });
-        console.log(that.data.location);
+        // console.log('locationName: ' + locationName);
+        // console.log(res.name);
+        // console.log(that.data.location);
       }
     })
   },
