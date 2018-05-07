@@ -1,4 +1,5 @@
 {
     "navigationBarTitleText": "创建签到",
-    "disableScroll": true
+    "disableScroll": true,
+    "enablePullDownRefresh": true
 }

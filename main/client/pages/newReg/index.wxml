@@ -5,7 +5,7 @@
       <text>项目名称: </text>
     </view>
     <view class="name-right">
-      <input maxlength="10" name="projectName" />
+      <input maxlength="10" name="projectName" value="{{regName}}"/>
     </view>
   </view>
 
@@ -60,7 +60,7 @@
   </view>
 
   <view class="regCreate">
-    <button type="primary" size='default' plain='{{true}}' bindtap="regCreate">创建签到</button>
+    <button type="primary" size='default' plain='{{true}}' bindtap="requestCreate">创建签到</button>
   </view>
 
 </form>

@@ -16,9 +16,9 @@ RegRecords
 | id        | 唯一索引,自增 |
 | schemaName | 签到表表名: objectId_No 格式 |
 | name      | 签到表显示名 |
-| createAt  | 生效时间timestamp |
-| delay     | 允许迟到时间(分) |
 | creatorId | 创建者ID |
+| createAt  | 生效时间timestamp, 自定义则使用13位 |
+| delay     | 允许迟到时间(分) |
 | longitude | 经度 |
 | latitude  | 纬度 |
 | signCode  | 签到码 |

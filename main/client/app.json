@@ -32,5 +32,6 @@
         "selectedIconPath": "imgs/tabBar/b2.png"
       }
     ]
-  }
+  },
+  "debug": true
 }
