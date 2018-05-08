@@ -5,7 +5,7 @@
       <text>项目名称: </text>
     </view>
     <view class="name-right">
-      <input maxlength="10" name="projectName" value="{{regName}}"/>
+      <input maxlength="10" name="projectName" value="{{displayName}}"/>
     </view>
   </view>
 
@@ -17,7 +17,7 @@
         <view class="picker" style="color:#555">{{date}}</view>
       </picker>
     </view>
-    
+
     <view class="line inline-block"></view>
 
     <view class="time-right inline-block">

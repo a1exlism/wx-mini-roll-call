@@ -14,18 +14,18 @@ RegRecords
 | 字段       | 描述 |
 | :-------  | :-- |
 | id        | 唯一索引,自增 |
-| schemaName | 签到表表名: objectId_No 格式 |
-| name      | 签到表显示名 |
+| tableName | 签到表表名: objectId_No 格式 |
+| displayName| 签到表显示名 |
 | creatorId | 创建者ID |
 | createAt  | 生效时间timestamp, 自定义则使用13位 |
 | delay     | 允许迟到时间(分) |
 | longitude | 经度 |
 | latitude  | 纬度 |
-| signCode  | 签到码 |
+| joinCode  | 签到码 |
 
-输入signCode进行签到, 在签到时会请求签到者location信息并结合时间进行限制.
+输入joinCode进行签到, 在签到时会请求签到者location信息并结合时间进行限制.
 
-schemaName, 例如表: `_5444b35ea22b0000443f0000_1`
+tableName, 例如表: `5444b35ea22b0000443f0000_1`
 ---
 | 字段       | 描述 |
 | :-------  | :-- |
