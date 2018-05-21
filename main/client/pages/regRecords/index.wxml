@@ -1,3 +1,27 @@
 <!--pages/regRecords/index.wxml-->
-<text>pages/regRecords/index.wxml</text>
-<text>显示所有已经创建的签到表</text>
+
+<view class='header'>
+  <text>已经创建的签到表</text>
+</view>
+
+<view class='container-table'>
+  <view class='tr'>
+    <view class='th'>签到表名</view>
+    <view class='th'>签到码</view>
+    <view class='th'>创建时间</view>
+    <view class='th'>延迟时间</view>
+  </view>
+  <view wx:for="{{records}}" wx:for-item="item">
+    <template is="tableList" data="{{...item}}"></template>
+  </view>
+</view>
+
+
+<template name="tableList">
+  <view class="tr">
+    <view class="td">{{displayName}}</view>
+    <view class="td">{{signCode}}</view>
+    <view class="td">{{createAt}}</view>
+    <view class="td">{{delay}}<text>分钟</text></view>
+  </view>
+</template>

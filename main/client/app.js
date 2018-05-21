@@ -55,7 +55,7 @@ App({
     },
     //  当小程序启动，或从后台进入前台显示，会触发 onShow
     onShow: function () {
-
+      this.userUpdate();
     },
     userUpdate() {
       //  用户信息
@@ -64,6 +64,7 @@ App({
         //  调用微信API获取用户信息
         console.log(this.globalData.user);
       }).catch(console.error);
+      console.log(this.globalData);
     }
 
 })
