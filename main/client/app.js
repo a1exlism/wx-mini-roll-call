@@ -3,8 +3,8 @@ const config = require('./config')
 const AV = require('./libs/av-weapp-min');
 const LQ = require('./libs/av-live-query-weapp-min');
 
-AV.init({ 
-      appId: '6xzvjuFk7Aa99DT4DvJKn6es-gzGzoHsz', 
+AV.init({
+      appId: '6xzvjuFk7Aa99DT4DvJKn6es-gzGzoHsz',
       appKey: 'BzbRWVF2qvHumyHdl5s7RaRU',
  });
 
@@ -29,13 +29,14 @@ App({
                     wx.authorize({
                         scope: 'scope.userInfo',
                         success(err) {
-                            that.userUpdate();  
+                            that.userUpdate();
                             console.log('权限申请成功');
                         }
                     })
                 } else {
                   that.userUpdate();
                 }
+                console.log('userUpdated');
             }
         });
         //  定位信息
@@ -64,5 +65,5 @@ App({
         console.log(this.globalData.user);
       }).catch(console.error);
     }
-    
+
 })

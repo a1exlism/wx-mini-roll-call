@@ -5,7 +5,7 @@
       <text>项目名称: </text>
     </view>
     <view class="name-right">
-      <input maxlength="10" name="projectName" value="{{displayName}}"/>
+      <input bindblur="saveDisplayName" focus="true" maxlength="10" name="projectName" value="{{displayName}}" placeholder="请输入签到表表名"/>
     </view>
   </view>
 

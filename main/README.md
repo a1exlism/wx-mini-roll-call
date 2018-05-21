@@ -21,9 +21,9 @@ RegRecords
 | delay     | 允许迟到时间(分) |
 | longitude | 经度 |
 | latitude  | 纬度 |
-| joinCode  | 签到码 |
+| signCode  | 签到码 |
 
-输入joinCode进行签到, 在签到时会请求签到者location信息并结合时间进行限制.
+输入signCode进行签到, 在签到时会请求签到者location信息并结合时间进行限制.
 
 tableName, 例如表: `5444b35ea22b0000443f0000_1`
 ---
@@ -34,3 +34,11 @@ tableName, 例如表: `5444b35ea22b0000443f0000_1`
 | signTime  | 签到时间 |
 | longitude | 经度 |
 | latitude  | 纬度 |
+
+## Excel导出思路
+利用CSV文件格式规范, 通过数据库查表依次输入内容即可.
+
+## Todo
+[ ] 创建签到页面: 创建完之后显示signCode并复制到粘贴板
+[ ] 查询我的签到: 列表形式展示所有创建的签到 time, displayName, signCode, (签到人数)
+[ ]

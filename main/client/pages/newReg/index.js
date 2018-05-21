@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    displayName: '项目名',
+    displayName: '',
     date: '2018-01-01',
     time: '00:00',
     timestamp: '',
@@ -17,14 +17,19 @@ Page({
     signCode: '',
     location: {
       name: '点我选择地点',
-      address: '',
-      latitude: '',
-      longitude: '',
+      address: null,
+      latitude: null,
+      longitude: null,
     },
 
     variColumn: '学号'
   },
-
+  //  displayName
+  saveDisplayName(e) {
+    this.setData({
+      displayName: e.detail.value
+    });
+  },
   //  time setting
   bindDateChange(e) {
     this.setData({
@@ -50,8 +55,10 @@ Page({
       // altitude: true, 高度暂时不用
       success(res) {
         let locationName = '已保存地点信息';
-        if (res.name != '' && res.name !== undefined) {
-          locationName = res.name;
+        if (res.latitude !== null) {
+          if(res.name != '' || res.name !== undefined) {
+            locationName = res.name;
+          }
         }
         that.setData({
           location: {
@@ -69,13 +76,30 @@ Page({
   },
 
   /**
-   * 操作整合
+   * 操作整合; todo: showModal 防止误操作
    */
   requestCreate() {
     console.log('btn create triggered');
     let that = this;
     let userId = app.globalData.user.objectId;
     let createdNum = 0;
+    //  优先判断输入合法性
+    if(this.data.location.latitude === null) {
+      wx.showToast({
+        title: '请选择地点',
+        icon: 'none',
+        duration: 1000
+      });
+      return false;
+    } else if(this.data.displayName === '项目名'){
+      wx.showToast({
+        title: '请更改签到名称',
+        icon: 'none',
+        duration: 1000
+      });
+      return false;
+    }
+
 
     this.setData({
       timestamp: Date.parse(this.data.date + ' ' + this.data.time),
@@ -84,7 +108,7 @@ Page({
     //  1. fetch increated table nums
     getCreatedNum('RegRecords', userId, function (count) {
       console.log('getCreatedNum then()');
-      let num = createdNum * 1 + 1;
+      let num = count  * 1 + 1;
       let tableName = 'S_' + userId + '_' + num;
       //  2. insert record
       insertRegRecords('RegRecords', {
@@ -99,6 +123,19 @@ Page({
       }, count);
       //  3. create table
       createTable(tableName, that.data);
+      //  4. 复制signCode至剪切板
+      wx.setClipboardData({
+        data: that.data.signCode,
+        success() {
+          wx.getClipboardData({
+            success(res) {
+              console.log('Clipboard Success: ' + res.data);
+            }
+          })
+        }
+      });
+      //  5. show notify 没用promise这里没法做判断
+      that.dbNotify(true, that.data.signCode);
     });
 
     /**
@@ -132,8 +169,8 @@ Page({
       obj.set('creatorId', data.creatorId);
       obj.set('createAt', data.createAt); //  timestamp
       obj.set('delay', data.delay);
-      obj.set('longitude', data.longitude);
-      obj.set('latitude', data.latitude);
+      obj.set('longitude', parseFloat(data.longitude));
+      obj.set('latitude', parseFloat(data.latitude));
       obj.set('signCode', data.signCode)
       obj.save().then(() => {
         console.log('RegRecords insert successfully');
@@ -177,6 +214,28 @@ Page({
       options.callback();
     }
   },
+
+  /**
+   * 提示 - 数据库创建成功/失败提示
+   */
+  dbNotify(status, msg = '') {
+    if(status === true) {
+      wx.showModal({
+        title: '签到表创建成功, 签到码 ' + msg + ' 已复制到剪切板',
+        icon: 'success',
+        duration: 1500,
+        mask: true
+      });
+    } else {
+      wx.showToast({
+        title: '签到表创建失败，请检查数据是否填写完整',
+        icon: 'none',
+        duration: 1000,
+        mask: true
+      });
+    }
+  },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -236,8 +295,7 @@ Page({
       (err) => {
         console.log('Promise Error: ' + err);
       }
-      );
-
+    );
   },
 
   /**
