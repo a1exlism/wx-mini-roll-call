@@ -11,8 +11,11 @@
     width: 60%;
 }
 
-.header text {
+.header {
   text-align: center;
+}
+
+.header text {
   font-size: 56rpx;
 }
 

@@ -2,6 +2,7 @@
 
 const app = getApp();
 const AV = app.AV;
+const utils = require('../../utils/util');
 
 Page({
 
@@ -26,7 +27,8 @@ Page({
       if(len === 0) {
         wx.showToast({
           title: '暂时没有数据',
-          icon: 'none'
+          icon: 'none',
+          duration: 500
         });
         return false;
       }
@@ -42,6 +44,47 @@ Page({
       console.log(that.data.records);
     }, function(err) {
       console.log(err);
+    })
+  },
+
+  exportCSV() {
+    //  create CSV file
+    let str = '学号,签到时间\n';
+    let records = this.data.records;
+    if(records == null) {
+      return false;
+    }
+    let len = records.length;
+    let b64str = [];
+    for(let i = 0; i < len; ++i) {
+      str += records[i].studentNo + ',' + records[i].signTime + '\n';
+    }
+    b64str = utils.Base64.encode(str);
+    console.log('b64str');
+    console.log(b64str);
+    //  BUG: wechat LeanCloud 无法创建文件
+    // let data = { base64: b64str };
+    // let file = new AV.File('tmp.csv', data);
+    //
+    // file.save().then(function(file) {
+    //   console.log('upload well');
+    // }, function(err) {
+    //   console.log('file create Err \n' + err);
+    // });
+
+    //  simulate download 暂时的
+    wx.downloadFile({
+      url: 'https://gist.githubusercontent.com/a1exlism/9141da7c20382fe730813f98564569c5/raw/a565791463c3c6f2501366004c8e897da6f8728d/tmp.csv',
+      success() {
+        wx.showToast({
+          title: '下载成功',
+          icon: 'success',
+          duration: 1000
+        });
+      },
+      fail(err) {
+        console.log(err);
+      }
     })
   },
   /**

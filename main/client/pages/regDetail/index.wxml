@@ -10,9 +10,9 @@
       <view class='th'>学号</view>
       <view class='th'>签到时间</view>
     </view>
-    <block wx:for="{{records}}" wx:for-item="item">
+    <view class="tr" wx:for="{{records}}" wx:for-item="item" wx:key="index">
       <template is="tableList" data="{{...item}}"></template>
-    </block>
+    </view>
   </view>
 
   <view class="button-sp-area">
@@ -22,8 +22,6 @@
 
 <!-- template -->
 <template name="tableList">
-  <view class="tr">
-    <view class="td">{{studentNo}}</view>
-    <view class="td">{{signTime}}</view>
-  </view>
+  <view class="td">{{studentNo}}</view>
+  <view class="td">{{signTime}}</view>
 </template>
