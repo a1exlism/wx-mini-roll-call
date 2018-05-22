@@ -11,17 +11,21 @@
     <view class='th'>创建时间</view>
     <view class='th'>延迟时间</view>
   </view>
-  <block wx:for="{{records}}" wx:for-item="item">
+  <!-- wx:key 不熟悉 -->
+  <view class="tr" wx:for="{{records}}" wx:for-item="item" wx:key="index">
     <template is="tableList" data="{{...item}}"></template>
-  </block>
+  </view>
 </view>
 
-<!-- template 绑定 ontap -->
+<!-- template -->
 <template name="tableList">
-  <view class="tr">
-    <view class="td" >{{displayName}}</view>
-    <view class="td">{{signCode}}</view>
-    <view class="td">{{createAt}}</view>
-    <view class="td">{{delay}}<text>分钟</text></view>
+  <view class="td">
+    <!-- 页面之间 传值 -->
+    <navigator url="/pages/regDetail/index?tableName={{tableName}}&displayName={{displayName}}">
+      {{displayName}}
+    </navigator>
   </view>
+  <view class="td">{{signCode}}</view>
+  <view class="td">{{createAt}}</view>
+  <view class="td">{{delay}}<text>分钟</text></view>
 </template>

@@ -1,3 +1,29 @@
 <!--pages/regDetail/index.wxml-->
-<text>pages/regDetail/index.wxml</text>
-<text>单一签到表的具体内容, 根据用户是否为创建者显示不同的页面</text>
+
+<view class="page-body">
+  <view class='header'>
+    <text>签到表: {{displayName}}</text>
+  </view>
+
+  <view class='container-table'>
+    <view class='tr'>
+      <view class='th'>学号</view>
+      <view class='th'>签到时间</view>
+    </view>
+    <block wx:for="{{records}}" wx:for-item="item">
+      <template is="tableList" data="{{...item}}"></template>
+    </block>
+  </view>
+
+  <view class="button-sp-area">
+    <button class="weui-btn" type="primary" plain="true" bindtap="exportCSV">导出为excel</button>
+  </view>
+</view>
+
+<!-- template -->
+<template name="tableList">
+  <view class="tr">
+    <view class="td">{{studentNo}}</view>
+    <view class="td">{{signTime}}</view>
+  </view>
+</template>

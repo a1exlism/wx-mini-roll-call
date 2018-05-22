@@ -1,1 +1,47 @@
 /* pages/regDetail/index.wxss */
+@import "../../libs/weui.wxss";
+
+.page-section{
+  margin-bottom: 20rpx;
+}
+
+.button-sp-area{
+    margin: 0 auto;
+    padding-top: 15px;
+    width: 60%;
+}
+
+.header text {
+  text-align: center;
+  font-size: 56rpx;
+}
+
+.container-table {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+
+  border: solid #aaa 1px;
+}
+
+.tr {
+  display: flex;
+  flex-direction: row;
+
+  border: solid #ccc 1px;
+}
+
+.th {
+  font-weight: bold;
+  flex: 1;
+
+  border: solid #ccc 1px;
+  text-align: center;
+}
+
+.td {
+  flex: 1;
+  text-align: center;
+
+  border: solid #ccc 1px;
+}
