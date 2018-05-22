@@ -11,7 +11,6 @@
 .container-table {
   display: flex;
   flex-wrap: nowrap;
-  overflow-y: scroll;
   flex-direction: column;
 
   border: solid #aaa 1px;
@@ -27,6 +26,8 @@
 .th {
   font-weight: bold;
   flex: 1;
+  
+  border: solid #ccc 1px;
   text-align: center;
 }
 

@@ -11,15 +11,15 @@
     <view class='th'>创建时间</view>
     <view class='th'>延迟时间</view>
   </view>
-  <view wx:for="{{records}}" wx:for-item="item">
+  <block wx:for="{{records}}" wx:for-item="item">
     <template is="tableList" data="{{...item}}"></template>
-  </view>
+  </block>
 </view>
 
-
+<!-- template 绑定 ontap -->
 <template name="tableList">
   <view class="tr">
-    <view class="td">{{displayName}}</view>
+    <view class="td" >{{displayName}}</view>
     <view class="td">{{signCode}}</view>
     <view class="td">{{createAt}}</view>
     <view class="td">{{delay}}<text>分钟</text></view>
