@@ -4,7 +4,7 @@ const AV = app.AV;
 
 Page({
 
-  /**
+	/**
    * 页面的初始数据
    */
   data: {
@@ -13,38 +13,36 @@ Page({
     time: '00:00',
     timestamp: '',
     delayIndex: '0',
-    delayArr: [3, 5, 10, 15, 30],
+    delayArr: [
+      3,
+      5,
+      10,
+      15,
+      30,
+    ],
     signCode: '',
     location: {
       name: '点我选择地点',
       address: null,
       latitude: null,
-      longitude: null,
+      longitude: null
     },
 
-    variColumn: '学号'
+    variColumn: '学号',
   },
   //  displayName
   saveDisplayName(e) {
-    this.setData({
-      displayName: e.detail.value
-    });
+    this.setData({ displayName: e.detail.value });
   },
   //  time setting
   bindDateChange(e) {
-    this.setData({
-      date: e.detail.value
-    })
+    this.setData({ date: e.detail.value })
   },
   bindTimeChange(e) {
-    this.setData({
-      time: e.detail.value
-    })
+    this.setData({ time: e.detail.value })
   },
   bindDelayChange(e) {
-    this.setData({
-      delayIndex: e.detail.value
-    })
+    this.setData({ delayIndex: e.detail.value })
   },
   //  location setting
   setLocation() {
@@ -55,27 +53,44 @@ Page({
       // altitude: true, 高度暂时不用
       success(res) {
         let locationName = '已保存地点信息';
-        if (res.latitude !== null) {
-          if(res.name != '' || res.name !== undefined) {
-            locationName = res.name;
-          }
-        }
-        that.setData({
-          location: {
-            name: locationName,
-            address: res.address,
-            latitude: res.latitude,
-            longitude: res.longitude
-          }
+        wx.getLocation({
+          type: 'wgs84',
+          success(res) {
+            that.setData({
+              location: {
+                name: locationName,
+                address: res.address,
+                latitude: res.latitude,
+                longitude: res.longitude,
+              }
+            });
+            console.log('location setted')
+          },
+          fail(e) {
+            console.log('location Err' + e);
+          },
         });
+        // if (res.latitude !== null) {
+        // 	if (res.name != '' || res.name !== undefined) {
+        // 		locationName = res.name;
+        // 	}
+        // }
+        // that.setData({
+        // 	location: {
+        // 		name: locationName,
+        // 		address: res.address,
+        // 		latitude: res.latitude,
+        // 		longitude: res.longitude,
+        // 	}
+        // });
         // console.log('locationName: ' + locationName);
         // console.log(res.name);
         // console.log(that.data.location);
-      }
+      },
     })
   },
 
-  /**
+	/**
    * 操作整合; todo: showModal 防止误操作
    */
   requestCreate() {
@@ -84,31 +99,22 @@ Page({
     let userId = app.globalData.user.objectId;
     let createdNum = 0;
     //  优先判断输入合法性
-    if(this.data.location.latitude === null) {
-      wx.showToast({
-        title: '请选择地点',
-        icon: 'none',
-        duration: 1000
-      });
+    if (this.data.location.latitude === null) {
+      wx.showToast({ title: '请选择地点', icon: 'none', duration: 1000, });
       return false;
-    } else if(this.data.displayName === '项目名'){
-      wx.showToast({
-        title: '请更改签到名称',
-        icon: 'none',
-        duration: 1000
-      });
+    } else if (this.data.displayName === '项目名') {
+      wx.showToast({ title: '请更改签到名称', icon: 'none', duration: 1000, });
       return false;
     }
 
-
     this.setData({
       timestamp: Date.parse(this.data.date + ' ' + this.data.time),
-      signCode: generateSignCode()
+      signCode: generateSignCode(),
     });
     //  1. fetch increated table nums
     getCreatedNum('RegRecords', userId, function (count) {
       console.log('getCreatedNum then()');
-      let num = count  * 1 + 1;
+      let num = count * 1 + 1;
       let tableName = 'S_' + userId + '_' + num;
       //  2. insert record
       insertRegRecords('RegRecords', {
@@ -119,7 +125,7 @@ Page({
         delay: that.data.delayArr[that.data.delayIndex],
         longitude: that.data.location.longitude,
         latitude: that.data.location.latitude,
-        signCode: that.data.signCode
+        signCode: that.data.signCode,
       }, count);
       //  3. create table
       createTable(tableName, that.data);
@@ -132,19 +138,19 @@ Page({
               console.log('Clipboard Success: ' + res.data);
             }
           })
-        }
+        },
       });
       //  5. show notify 没用promise这里没法做判断
       that.dbNotify(true, that.data.signCode);
     });
 
-    /**
+		/**
      * 生成8位随机签到码 Join Code
      */
     function generateSignCode() {
       return Math.random().toString(36).substr(2, 8);
     };
-    /**
+		/**
      * 获取用户已创建表数量
      */
     function getCreatedNum(tableName, userId, resolve) {
@@ -154,7 +160,7 @@ Page({
         resolve(count);
       });
     };
-    /**
+		/**
      * 数据库操作
      * RegRecords 插入单条数据, 用于记录
      */
@@ -180,7 +186,7 @@ Page({
         //  todo: 用于提示用户内容check
       });
     };
-    /**
+		/**
      * 数据库操作
      * 创建一张新表: objectId_No 用于签到记录
      * displayName: 表的前端显示名
@@ -206,7 +212,7 @@ Page({
 
     };
   },
-  /**
+	/**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
@@ -215,57 +221,43 @@ Page({
     }
   },
 
-  /**
+	/**
    * 提示 - 数据库创建成功/失败提示
    */
   dbNotify(status, msg = '') {
-    if(status === true) {
+    if (status === true) {
       wx.showModal({
         title: '签到表创建成功, 签到码 ' + msg + ' 已复制到剪切板',
         icon: 'success',
         duration: 1500,
-        mask: true
+        mask: true,
       });
     } else {
-      wx.showToast({
-        title: '签到表创建失败，请检查数据是否填写完整',
-        icon: 'none',
-        duration: 1000,
-        mask: true
-      });
+      wx.showToast({ title: '签到表创建失败，请检查数据是否填写完整', icon: 'none', duration: 1000, mask: true, });
     }
   },
 
-
-  /**
+	/**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function () { },
 
-  },
-
-  /**
+	/**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function () { },
 
-  },
-
-  /**
+	/**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function () { },
 
-  },
-
-  /**
+	/**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function () { },
 
-  },
-
-  /**
+	/**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
@@ -281,34 +273,26 @@ Page({
           name: '点我选择地点',
           address: '',
           latitude: '',
-          longitude: '',
-        },
+          longitude: ''
+        }
       })
       resolve();
     });
-    init.then(
-      () => {
-        //  stop refresh
-        wx.stopPullDownRefresh();
-      })
-      .catch(
-      (err) => {
-        console.log('Promise Error: ' + err);
-      }
-    );
+    init.then(() => {
+      //  stop refresh
+      wx.stopPullDownRefresh();
+    }).catch((err) => {
+      console.log('Promise Error: ' + err);
+    });
   },
 
-  /**
+	/**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function () { },
 
-  },
-
-  /**
+	/**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
-  }
+  onShareAppMessage: function () { },
 })

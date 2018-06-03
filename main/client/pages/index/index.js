@@ -97,7 +97,8 @@ Page({
       let latitudeGap = utils.accSub(data.latitude, record.latitude);
       let longitudeGap = utils.accSub(data.longitude, record.longitude);
       let totalGap = Math.abs(utils.accAdd(longitudeGap, latitudeGap));
-      let threshold = 0.00004;
+      // let threshold = 0.00004;
+      let threshold = 0.00400;
       console.log('GPS GAP ' + totalGap);
       if(totalGap < threshold) {
         console.log('GPS test well; Start Insert data into table.');
@@ -122,6 +123,7 @@ Page({
             obj.set('userId', userId);
             obj.set('studentNo', that.data.verifyCode);
             obj.save().then(() => {
+              that.showToast('success', '签到成功！');
               console.log(tableName + ' insert successfully');
             }).catch((err) => {
               console.log('insert error ' + err);
@@ -130,9 +132,6 @@ Page({
         }, function(err) {
           console.log('Query count Err' + err);
         });
-
-
-
       } else {
         that.showToast('none', '处于错误地址!');
       }
